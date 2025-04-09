@@ -3,12 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using NetTopologySuite;
 
 namespace Ambev.DeveloperEvaluation.ORM;
 
 public class DefaultContext : DbContext
 {
     public DbSet<User> Users { get; set; }
+    
+    public DbSet<Product> Products { get; set; }
+
+    public DbSet<Cart> Carts { get; set; }
 
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
     {
@@ -34,7 +39,9 @@ public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
 
         builder.UseNpgsql(
                connectionString,
-               b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.WebApi")
+               b => b
+                   .MigrationsAssembly("Ambev.DeveloperEvaluation.WebApi")
+                   .UseNetTopologySuite()
         );
 
         return new DefaultContext(builder.Options);
