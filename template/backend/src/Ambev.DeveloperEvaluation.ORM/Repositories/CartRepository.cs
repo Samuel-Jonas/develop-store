@@ -31,9 +31,20 @@ public class CartRepository : ICartRepository
         return await _context.Carts.ToListAsync(cancellationToken);
     }
 
-    public async Task<Cart> UpdateAsync(Cart cart, CancellationToken cancellationToken = default)
+    public async Task<Cart> UpdateCheckoutAsync(Cart cart, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var existingCart = await _context.Carts.FirstOrDefaultAsync(o => o.Id == cart.Id, cancellationToken);
+
+        if (existingCart == null)
+        {
+            throw new Exception("Cart not found");
+        }
+        
+        existingCart.Checkout();
+        existingCart.UpdatedAt = DateTime.Now;
+        
+        await _context.SaveChangesAsync(cancellationToken);
+        return existingCart;
     }
 
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)

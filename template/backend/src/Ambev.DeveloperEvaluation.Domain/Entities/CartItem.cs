@@ -4,10 +4,10 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
 public class CartItem : BaseEntity
 {
-    public string ProductId { get; set; }
+    public Guid ProductId { get; set; }
     public Product Product { get; private set; }
 
-    public string CartId { get; set; }
+    public Guid CartId { get; set; }
     public Cart Cart { get; set; }
 
     public int Quantity { get; set; }
@@ -20,7 +20,7 @@ public class CartItem : BaseEntity
     
     private CartItem() { }
 
-    public CartItem(string productId, string cartId, int quantity, decimal priceAtAddition)
+    public CartItem(Guid productId, Guid cartId, int quantity, decimal priceAtAddition)
     {
         Id = Guid.NewGuid();
         ProductId = productId;

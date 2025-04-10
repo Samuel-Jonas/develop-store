@@ -6,9 +6,9 @@ public interface ICartItemRepository
 {
     Task<CartItem> CreateAsync(CartItem cartItem, CancellationToken cancellationToken = default);
     
-    Task<CartItem> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<CartItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     
-    Task<List<CartItem>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<List<CartItem>> GetAllFromACartIdAsync(Guid cartId, CancellationToken cancellationToken = default);
     
     Task<CartItem> UpdateAsync(CartItem cartItem, CancellationToken cancellationToken = default);
     

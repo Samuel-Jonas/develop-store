@@ -78,7 +78,7 @@ public class ProductRepository : IProductRepository
             existingProduct.ImageUrl = product.ImageUrl;
         }
         
-        existingProduct.UpdatedAt = product.UpdatedAt ?? DateTime.Now;
+        existingProduct.UpdatedAt = DateTime.Now;
             
         await _context.SaveChangesAsync(cancellationToken);
         return existingProduct;
@@ -94,9 +94,7 @@ public class ProductRepository : IProductRepository
         }
         
         _context.Products.Remove(product);
-        
         await _context.SaveChangesAsync(cancellationToken);
-        
         return true;
     }
 }

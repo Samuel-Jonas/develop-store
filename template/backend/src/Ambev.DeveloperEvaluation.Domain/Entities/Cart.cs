@@ -20,6 +20,11 @@ public class Cart : BaseEntity
 
     public void AddItem(Product product, int quantity, decimal price)
     {
-        Items.Add(new CartItem(product.Id.ToString(), this.Id.ToString(), quantity, price));
+        Items.Add(new CartItem(product.Id, this.Id, quantity, price));
+    }
+
+    public void Checkout()
+    {
+        this.CheckedOutAt = DateTime.Now;
     }
 }

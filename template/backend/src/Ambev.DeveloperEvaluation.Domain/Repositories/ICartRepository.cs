@@ -10,7 +10,7 @@ public interface ICartRepository
     
     Task<List<Cart>> GetAllAsync(CancellationToken cancellationToken = default);
     
-    Task<Cart> UpdateAsync(Cart cart, CancellationToken cancellationToken = default);
+    Task<Cart> UpdateCheckoutAsync(Cart cart, CancellationToken cancellationToken = default);
     
     Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }
