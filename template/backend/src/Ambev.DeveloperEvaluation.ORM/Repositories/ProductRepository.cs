@@ -24,18 +24,23 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.Products.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        return await _context.Products
+            .Where(p => p.DeletedAt != null)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<List<Product>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await _context.Products.ToListAsync(cancellationToken);
+        return await _context.Products
+            .Where(p => p.DeletedAt != null)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<Product> UpdateAsync(Product product, CancellationToken cancellationToken = default)
     {
         var existingProduct = await _context.Products
             .AsTracking()
+            .Where(p => p.DeletedAt != null)
             .FirstOrDefaultAsync(o => o.Id == product.Id, cancellationToken);
 
         if (existingProduct == null)
@@ -86,14 +91,18 @@ public class ProductRepository : IProductRepository
 
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var product = await _context.Products.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        var product = await _context.Products
+            .Where(p => p.DeletedAt != null)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (product == null)
         {
             return false;
         }
         
-        _context.Products.Remove(product);
+        product.DeletedAt = DateTime.Now;
+        product.UpdatedAt = DateTime.Now;
+        
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }

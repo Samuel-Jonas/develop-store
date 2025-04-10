@@ -17,6 +17,10 @@ public class DefaultContext : DbContext
 
     public DbSet<CartItem> CartItems { get; set; }
 
+    public DbSet<Person> People { get; set; }
+
+    public DbSet<RegularPerson> Regulars { get; set; }
+
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
     {
     }
@@ -42,7 +46,7 @@ public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
         builder.UseNpgsql(
                connectionString,
                b => b
-                   .MigrationsAssembly("Ambev.DeveloperEvaluation.WebApi")
+                   .MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
                    .UseNetTopologySuite()
         );
 

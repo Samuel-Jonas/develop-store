@@ -12,7 +12,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("user");
 
         builder.HasKey(u => u.Id);
-        builder.Property(u => u.Id).HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
+        builder.Property(u => u.Id).HasColumnName("id").HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(u => u.Username).HasColumnName("username").IsRequired().HasMaxLength(50);
         builder.Property(u => u.Password).HasColumnName("password").IsRequired().HasMaxLength(100);
@@ -33,11 +33,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         
         builder.Property(u => u.CreatedAt)
             .IsRequired()
-            .HasColumnName("createdAt")
-            .HasColumnType("datetime")
+            .HasColumnName("created_at")
+            .HasColumnType("timestamp")
             .HasDefaultValueSql("now()");
         
-        builder.Property(u => u.UpdatedAt).HasColumnName("updatedAt").HasColumnType("datetime");
+        builder.Property(u => u.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp").IsRequired().HasDefaultValueSql("now()");
+        builder.Property(u => u.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamp").HasDefaultValueSql("null");
 
     }
 }

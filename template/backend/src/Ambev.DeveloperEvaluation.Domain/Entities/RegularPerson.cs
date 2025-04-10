@@ -18,5 +18,9 @@ public class RegularPerson : BaseEntity
 
     public string Zipcode { get; set; }
 
-    public NetTopologySuite.Geometries.Point Geolocation { get; set; }
+    public NetTopologySuite.Geometries.Point? Geolocation { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+    
+    public DateTime UpdatedAt { get; set; }
 }

@@ -80,6 +80,10 @@ public class User : BaseEntity, IUser
 
     public ICollection<Product> ProductsCreated { get; set; }
 
+    public Cart Cart { get; set; }
+
+    public Person Person { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the User class.
     /// </summary>

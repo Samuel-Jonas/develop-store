@@ -6,6 +6,8 @@ public class BaseEntity : IComparable<BaseEntity>
 {
     public Guid Id { get; set; }
 
+    public DateTime? DeletedAt { get; set; }
+
     public Task<IEnumerable<ValidationErrorDetail>> ValidateAsync()
     {
         return Validator.ValidateAsync(this);

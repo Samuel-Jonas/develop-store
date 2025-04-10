@@ -23,18 +23,23 @@ public class CartItemRepository : ICartItemRepository
 
     public async Task<CartItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.CartItems.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        return await _context.CartItems
+            .Where(c => c.DeletedAt != null)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<List<CartItem>> GetAllFromACartIdAsync(Guid cartId, CancellationToken cancellationToken = default)
     {
-        return await _context.CartItems.Where(ci => ci.CartId == cartId).ToListAsync(cancellationToken);
+        return await _context.CartItems
+            .Where(ci => ci.CartId == cartId && ci.DeletedAt != null)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<CartItem> UpdateAsync(CartItem cartItem, CancellationToken cancellationToken = default)
     {
         var existingCartItem = await _context.CartItems
             .AsTracking()
+            .Where(ci => ci.DeletedAt != null)
             .FirstOrDefaultAsync(o => o.Id == cartItem.Id, cancellationToken);
 
         if (existingCartItem == null)
@@ -60,14 +65,18 @@ public class CartItemRepository : ICartItemRepository
 
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var cartItem = await _context.CartItems.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        var cartItem = await _context.CartItems
+            .Where(ci => ci.DeletedAt != null)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (cartItem == null)
         {
             return false;
         }
         
-        _context.CartItems.Remove(cartItem);
+        cartItem.DeletedAt = DateTime.Now;
+        cartItem.UpdatedAt = DateTime.Now;
+        
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }

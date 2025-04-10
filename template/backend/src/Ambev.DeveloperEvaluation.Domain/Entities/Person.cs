@@ -11,4 +11,8 @@ public class Person : BaseEntity
     
     public User User { get; set; } = default!;
     public RegularPerson? RegularPerson { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
 }
