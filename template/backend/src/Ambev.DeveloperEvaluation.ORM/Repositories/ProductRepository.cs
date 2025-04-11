@@ -25,14 +25,14 @@ public class ProductRepository : IProductRepository
     public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Products
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<List<Product>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Products
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .ToListAsync(cancellationToken);
     }
 
@@ -40,7 +40,7 @@ public class ProductRepository : IProductRepository
     {
         var existingProduct = await _context.Products
             .AsTracking()
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == product.Id, cancellationToken);
 
         if (existingProduct == null)
@@ -92,7 +92,7 @@ public class ProductRepository : IProductRepository
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var product = await _context.Products
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (product == null)

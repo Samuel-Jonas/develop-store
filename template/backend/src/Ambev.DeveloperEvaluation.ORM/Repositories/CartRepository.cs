@@ -24,21 +24,21 @@ public class CartRepository : ICartRepository
     public async Task<Cart?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Carts
-            .Where(c => c.DeletedAt != null)
+            .Where(c => c.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<List<Cart>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Carts
-            .Where(c => c.DeletedAt != null)
+            .Where(c => c.DeletedAt == null)
             .ToListAsync(cancellationToken);
     }
 
     public async Task<Cart> UpdateCheckoutAsync(Cart cart, CancellationToken cancellationToken = default)
     {
         var existingCart = await _context.Carts
-            .Where(c => c.DeletedAt != null)
+            .Where(c => c.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == cart.Id, cancellationToken);
 
         if (existingCart == null)
@@ -56,7 +56,7 @@ public class CartRepository : ICartRepository
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var cart = await _context.Carts
-            .Where(c => c.DeletedAt != null)
+            .Where(c => c.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (cart == null)

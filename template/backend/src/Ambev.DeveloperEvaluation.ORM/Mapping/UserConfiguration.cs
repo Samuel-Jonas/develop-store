@@ -34,11 +34,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.CreatedAt)
             .IsRequired()
             .HasColumnName("created_at")
-            .HasColumnType("timestamp")
+            .HasColumnType("timestamptz")
             .HasDefaultValueSql("now()");
         
-        builder.Property(u => u.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp").IsRequired().HasDefaultValueSql("now()");
-        builder.Property(u => u.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamp").HasDefaultValueSql("null");
+        builder.Property(u => u.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
+        builder.Property(u => u.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamptz").HasDefaultValueSql("null");
 
     }
 }

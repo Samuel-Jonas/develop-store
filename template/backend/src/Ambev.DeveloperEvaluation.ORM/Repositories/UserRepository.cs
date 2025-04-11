@@ -42,7 +42,7 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Users
-            .Where(u => u.DeletedAt != null)
+            .Where(u => u.DeletedAt == null)
             .FirstOrDefaultAsync(o=> o.Id == id, cancellationToken);
     }
 
@@ -55,7 +55,7 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
         return await _context.Users
-            .Where(u => u.DeletedAt != null)
+            .Where(u => u.DeletedAt == null)
             .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
 

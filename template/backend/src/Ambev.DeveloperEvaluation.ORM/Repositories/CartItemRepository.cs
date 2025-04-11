@@ -24,7 +24,7 @@ public class CartItemRepository : ICartItemRepository
     public async Task<CartItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.CartItems
-            .Where(c => c.DeletedAt != null)
+            .Where(c => c.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
@@ -39,7 +39,7 @@ public class CartItemRepository : ICartItemRepository
     {
         var existingCartItem = await _context.CartItems
             .AsTracking()
-            .Where(ci => ci.DeletedAt != null)
+            .Where(ci => ci.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == cartItem.Id, cancellationToken);
 
         if (existingCartItem == null)
@@ -66,7 +66,7 @@ public class CartItemRepository : ICartItemRepository
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var cartItem = await _context.CartItems
-            .Where(ci => ci.DeletedAt != null)
+            .Where(ci => ci.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (cartItem == null)

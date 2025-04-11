@@ -15,9 +15,9 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
 
         builder.Property(p => p.UserId).HasColumnName("user_id").HasColumnType("uuid");
         builder.Property(p => p.Type).HasColumnName("type").HasConversion<string>().IsRequired().HasMaxLength(20);
-        builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp").IsRequired().HasDefaultValueSql("now()");
-        builder.Property(p => p.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp").IsRequired().HasDefaultValueSql("now()");
-        builder.Property(p => p.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamp").HasDefaultValueSql("null");
+        builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
+        builder.Property(p => p.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
+        builder.Property(p => p.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamptz").HasDefaultValueSql("null");
         
         builder.HasOne(p => p.User)
             .WithOne(u => u.Person)

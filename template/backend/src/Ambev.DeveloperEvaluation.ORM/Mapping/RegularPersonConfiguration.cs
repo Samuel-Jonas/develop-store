@@ -20,9 +20,9 @@ public class RegularPersonConfiguration : IEntityTypeConfiguration<RegularPerson
         builder.Property(p => p.Number).HasColumnName("number").HasMaxLength(10);
         builder.Property(p => p.Zipcode).HasColumnName("zipcode").HasMaxLength(20);
         builder.Property(p => p.Geolocation).HasColumnName("geolocation").HasColumnType("geography (point)").IsRequired(false);
-        builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasColumnType("timestamp").HasDefaultValueSql("now()").IsRequired();
-        builder.Property(p => p.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp").IsRequired().HasDefaultValueSql("now()");
-        builder.Property(p => p.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamp").HasDefaultValueSql("null");
+        builder.Property(p => p.CreatedAt).HasColumnName("created_at").HasColumnType("timestamptz").HasDefaultValueSql("now()").IsRequired();
+        builder.Property(p => p.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
+        builder.Property(p => p.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamptz").HasDefaultValueSql("null");
         
         builder.HasOne(rp => rp.Person)
             .WithOne(p => p.RegularPerson)

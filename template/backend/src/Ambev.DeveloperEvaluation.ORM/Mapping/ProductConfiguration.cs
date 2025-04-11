@@ -21,9 +21,9 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Rate).HasColumnName("rate").IsRequired().HasPrecision(10, 2);
         builder.Property(p => p.Count).HasColumnName("count").IsRequired();
         builder.Property(p => p.CreatedBy).HasColumnName("created_by").IsRequired();
-        builder.Property(p => p.CreatedAt).HasColumnName("created_at").IsRequired().HasColumnType("timestamp").HasDefaultValueSql("now()");
-        builder.Property(p => p.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp").IsRequired().HasDefaultValueSql("now()");
-        builder.Property(p => p.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamp").HasDefaultValueSql("null");
+        builder.Property(p => p.CreatedAt).HasColumnName("created_at").IsRequired().HasColumnType("timestamptz").HasDefaultValueSql("now()");
+        builder.Property(p => p.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
+        builder.Property(p => p.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamptz").HasDefaultValueSql("null");
         
         builder.HasOne(p => p.Creator)
             .WithMany(u => u.ProductsCreated)

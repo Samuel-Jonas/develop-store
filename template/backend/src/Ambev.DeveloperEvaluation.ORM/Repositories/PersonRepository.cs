@@ -24,21 +24,21 @@ public class PersonRepository : IPersonRepository
     public async Task<Person?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.People
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<List<Person>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.People
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .ToListAsync(cancellationToken);
     }
 
     public async Task<Person> UpdatePersonTypeAsync(Guid id, PersonType personType, CancellationToken cancellationToken = default)
     {
         var existingPerson = await _context.People
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (existingPerson == null)
@@ -56,7 +56,7 @@ public class PersonRepository : IPersonRepository
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var existingPerson = await _context.People
-            .Where(p => p.DeletedAt != null)
+            .Where(p => p.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (existingPerson == null)

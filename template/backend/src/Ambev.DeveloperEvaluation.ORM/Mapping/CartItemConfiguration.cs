@@ -18,9 +18,9 @@ public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
         builder.Property(ci => ci.CartId).HasColumnName("cart_id").HasColumnType("uuid").IsRequired();
         builder.Property(ci => ci.Quantity).HasColumnName("quantity").IsRequired();
         builder.Property(ci => ci.PriceAtAddition).HasColumnName("price_at_addition").IsRequired().HasPrecision(10, 2);
-        builder.Property(ci => ci.CreatedAt).HasColumnName("created_at").IsRequired().HasColumnType("timestamp").HasDefaultValueSql("now()");
-        builder.Property(ci => ci.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamp").IsRequired().HasDefaultValueSql("now()");
-        builder.Property(ci => ci.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamp").HasDefaultValueSql("null");
+        builder.Property(ci => ci.CreatedAt).HasColumnName("created_at").IsRequired().HasColumnType("timestamptz").HasDefaultValueSql("now()");
+        builder.Property(ci => ci.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
+        builder.Property(ci => ci.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamptz").HasDefaultValueSql("null");
         
         builder.HasOne(ci => ci.Cart)
             .WithMany(c => c.Items)

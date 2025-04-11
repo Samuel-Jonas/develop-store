@@ -23,14 +23,14 @@ public class RegularPersonRepository : IRegularPersonRepository
     public async Task<RegularPerson?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Regulars
-            .Where(rp => rp.DeletedAt != null)
+            .Where(rp => rp.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public async Task<List<RegularPerson>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Regulars
-            .Where(rp => rp.DeletedAt != null)
+            .Where(rp => rp.DeletedAt == null)
             .ToListAsync(cancellationToken);
     }
 
@@ -38,7 +38,7 @@ public class RegularPersonRepository : IRegularPersonRepository
     {
         var existingRegularPerson = await _context.Regulars
             .AsTracking()
-            .Where(rp => rp.DeletedAt != null)
+            .Where(rp => rp.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == person.Id, cancellationToken);
 
         if (existingRegularPerson == null)
@@ -89,7 +89,7 @@ public class RegularPersonRepository : IRegularPersonRepository
     public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var existingRegularPerson = await _context.Regulars
-            .Where(rp => rp.DeletedAt != null)
+            .Where(rp => rp.DeletedAt == null)
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
         if (existingRegularPerson == null)
