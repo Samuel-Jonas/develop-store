@@ -18,6 +18,8 @@ public class CreateProductCommand : IRequest<CreateProductResult>
     public string Image { get; set; }
 
     public ProductRating Rating { get; set; }
+
+    public string LoggedUserEmail { get; set; }
     
     public ValidationResultDetail Validate()
     {

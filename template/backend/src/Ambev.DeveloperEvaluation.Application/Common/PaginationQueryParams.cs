@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Common;
+namespace Ambev.DeveloperEvaluation.Application.Common;
 
 public class PaginationQueryParams
 {

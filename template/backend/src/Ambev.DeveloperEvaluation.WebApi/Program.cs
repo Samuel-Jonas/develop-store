@@ -32,8 +32,11 @@ public class Program
             builder.Services.AddDbContext<DefaultContext>(options =>
                 options.UseNpgsql(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
-                )
+                    b =>
+                    {
+                        b.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM");
+                        b.UseNetTopologySuite();
+                    })
             );
 
             builder.Services.AddJwtAuthentication(builder.Configuration);

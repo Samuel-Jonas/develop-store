@@ -1,4 +1,6 @@
 using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
+using Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+using Ambev.DeveloperEvaluation.Application.Common;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
@@ -33,6 +35,8 @@ public class ProductsController : BaseController
             return BadRequest(validationResult.Errors);
 
         var command = _mapper.Map<CreateProductCommand>(request);
+        command.LoggedUserEmail = this.GetCurrentUserEmail();
+        
         var response = await _mediator.Send(command, cancellationToken);
 
         return Created(string.Empty, new ApiResponseWithData<CreateProductResponse>
@@ -42,12 +46,17 @@ public class ProductsController : BaseController
             Data = _mapper.Map<CreateProductResponse>(response)
         });
     }
-
+    
+    // TODO: integrate the pagination with database query
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponseWithData<PaginatedResponse<GetAllProductsResponse>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAllProducts([FromQuery] PaginationQueryParams pagination, CancellationToken cancellationToken)
     {
-        return Ok(new { });
+        var command = _mapper.Map<GetAllProductCommand>(pagination);
+        var response = await _mediator.Send(command, cancellationToken);
+
+
+        return Ok(new { Data = new { Sucess = true } });
     }
 }

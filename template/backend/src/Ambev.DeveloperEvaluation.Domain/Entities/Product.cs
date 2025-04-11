@@ -21,10 +21,10 @@ public class Product : BaseEntity
 
     public Guid CreatedBy { get; set; }
     public User Creator { get; set; }
-    
-    public DateTime CreatedAt { get; set; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+    public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 
     public CartItem Item { get; set; }
     
