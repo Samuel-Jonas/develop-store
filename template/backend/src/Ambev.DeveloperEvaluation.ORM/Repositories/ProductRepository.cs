@@ -1,4 +1,5 @@
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +34,22 @@ public class ProductRepository : IProductRepository
     {
         return await _context.Products
             .Where(p => p.DeletedAt == null)
+            .ToListAsync(cancellationToken);
+    }
+    
+    public async Task<List<Product>> GetAllProductsByCategoryAsync(ProductCategory category, 
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.Products
+            .Where(p => p.DeletedAt == null && p.Category == category)
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<ProductCategory>> GetAllProductCategoriesAsync(CancellationToken cancellationToken = default)
+    {
+        return await _context.Products
+            .Where(p => p.DeletedAt == null)
+            .Select(p => p.Category)
             .ToListAsync(cancellationToken);
     }
 

@@ -16,7 +16,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Title).HasColumnName("title").IsRequired().HasMaxLength(100);
         builder.Property(p => p.Price).HasColumnName("price").IsRequired().HasPrecision(10, 2);
         builder.Property(p => p.Description).HasColumnName("description").HasMaxLength(1000);
-        builder.Property(p => p.Category).HasColumnName("category").HasConversion<string>().IsRequired().HasMaxLength(20);
+        builder.Property(p => p.Category).HasColumnName("category").HasConversion<string>().IsRequired().HasMaxLength(55);
         builder.Property(p => p.ImageUrl).HasColumnName("image_url").HasMaxLength(500);
         builder.Property(p => p.Rate).HasColumnName("rate").IsRequired().HasPrecision(10, 2);
         builder.Property(p => p.Count).HasColumnName("count").IsRequired();

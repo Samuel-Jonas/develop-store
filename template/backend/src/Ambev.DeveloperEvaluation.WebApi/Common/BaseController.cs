@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Ambev.DeveloperEvaluation.Application.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Common;
 
@@ -16,6 +15,9 @@ public class BaseController : ControllerBase
 
     protected IActionResult Ok<T>(T data) =>
             base.Ok(new ApiResponseWithData<T> { Data = data, Success = true });
+    
+    protected IActionResult BuildOkPage<T>(T data) =>
+            base.Ok(data);
 
     protected IActionResult Created<T>(string routeName, object routeValues, T data) =>
         base.CreatedAtRoute(routeName, routeValues, new ApiResponseWithData<T> { Data = data, Success = true });
@@ -27,7 +29,7 @@ public class BaseController : ControllerBase
         base.NotFound(new ApiResponse { Message = message, Success = false });
 
     protected IActionResult OkPaginated<T>(PaginatedList<T> pagedList) =>
-            Ok(new PaginatedResponse<T>
+            BuildOkPage(new PaginatedResponse<T>
             {
                 Data = pagedList,
                 CurrentPage = pagedList.CurrentPage,

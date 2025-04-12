@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ambev.DeveloperEvaluation.Application.Common;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
 
-public class PaginationQueryParams
+public class GetAllProductsQueryParamsRequest
 {
     [FromQuery(Name = "_page")]
     public int Page { get; set; } = 1;

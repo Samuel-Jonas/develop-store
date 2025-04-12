@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
-public class GetAllProductCommand : IRequest<GetAllProductsResult>
+public class GetAllProductCommand : IRequest<List<GetAllProductsResult>>
 {
     public int Page { get; set; }
 

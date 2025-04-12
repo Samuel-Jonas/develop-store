@@ -178,8 +178,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(55)
+                        .HasColumnType("character varying(55)")
                         .HasColumnName("category");
 
                     b.Property<int>("Count")

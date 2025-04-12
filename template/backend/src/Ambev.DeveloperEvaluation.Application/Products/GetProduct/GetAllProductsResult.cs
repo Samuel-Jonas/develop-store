@@ -16,7 +16,13 @@ public class GetAllProductsResult
 
     public string Image { get; set; }
 
-    public decimal Rating { get; set; }
+    public Rating Rating { get; set; }
+    
+}
+
+public class Rating
+{
+    public decimal Rate { get; set; }
 
     public int Count { get; set; }
 }

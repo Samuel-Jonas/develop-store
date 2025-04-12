@@ -1,6 +1,6 @@
 using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct;
-using Ambev.DeveloperEvaluation.Application.Common;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
@@ -37,9 +37,10 @@ public class ProductsController : BaseController
         var command = _mapper.Map<CreateProductCommand>(request);
         
         //TODO: Remove mocked user
-        command.LoggedUserEmail = "customer@gmail.com";
+        command.LoggedUserEmail = "customer@gmail.com"; //this.GetCurrentUserEmail();
         
         var response = await _mediator.Send(command, cancellationToken);
+        _mapper.Map<CreateProductResponse>(request);
 
         return Created(string.Empty, new ApiResponseWithData<CreateProductResponse>
         {
@@ -49,16 +50,78 @@ public class ProductsController : BaseController
         });
     }
     
-    // TODO: integrate the pagination with database query
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponseWithData<PaginatedResponse<GetAllProductsResponse>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginatedResponse<GetAllProductsResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetAllProducts([FromQuery] PaginationQueryParams pagination, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllProducts([FromQuery] GetAllProductsQueryParamsRequest pagination, CancellationToken cancellationToken)
     {
         var command = _mapper.Map<GetAllProductCommand>(pagination);
         var response = await _mediator.Send(command, cancellationToken);
 
+        var products = _mapper.Map<List<GetAllProductsResponse>>(response);
 
-        return Ok(new { Data = new { Sucess = true } });
+        return OkPaginated(new PaginatedList<GetAllProductsResponse>(products, products.Count, pagination.Page, pagination.Size));
+    }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(GetAllProductsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetProductById([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        var request = new GetProductRequest { Id = id };
+        var validator = new GetProductRequestValidator();
+        
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
+        var command = _mapper.Map<GetProductCommand>(request.Id);
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Ok(_mapper.Map<GetAllProductsResponse>(response));
+    }
+    
+    //TODO: Get all products by category
+    [HttpGet("category/{category}")]
+    public async Task<IActionResult> GetAllProductsByCategory([FromRoute] ProductCategory category,
+        [FromQuery] GetAllProductsQueryParamsRequest queryParams,
+        CancellationToken cancellationToken)
+    {
+        var request = new GetAllProductsByCategoryRequest { Category = category };
+        var validator = new GetAllProductsByCategoryRequestValidator();
+        
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
+        var command = _mapper.Map<GetProductCommand>(request.Category);
+        var response = await _mediator.Send(command, cancellationToken);
+        
+        return Ok(_mapper.Map<GetAllProductsResponse>(response));
+    }
+    
+    //rai: Get all categories existing in database
+    [HttpGet("categories")]
+    [ProducesResponseType(typeof(ApiResponseWithData<List<string>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllProductsCategories(CancellationToken cancellationToken)
+    {
+        return Ok(new { });
+    }
+
+    //TODO: Delete product
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteProductById([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        return Ok(new { });
     }
 }

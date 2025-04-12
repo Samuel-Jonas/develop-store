@@ -1,10 +1,11 @@
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
-public class GetAllProductsHandler : IRequestHandler<GetAllProductCommand, GetAllProductsResult>
+public class GetAllProductsHandler : IRequestHandler<GetAllProductCommand, List<GetAllProductsResult>>
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
@@ -15,10 +16,10 @@ public class GetAllProductsHandler : IRequestHandler<GetAllProductCommand, GetAl
         _mapper = mapper;
     }
     
-    public async Task<GetAllProductsResult> Handle(GetAllProductCommand request, CancellationToken cancellationToken)
+    public async Task<List<GetAllProductsResult>> Handle(GetAllProductCommand request, CancellationToken cancellationToken)
     {
-        var products = await _productRepository.GetAllAsync(cancellationToken);
+        List<Product> products = await _productRepository.GetAllAsync(cancellationToken);
 
-        return _mapper.Map<GetAllProductsResult>(products);
+        return _mapper.Map<List<GetAllProductsResult>>(products);
     }
 }

@@ -8,6 +8,7 @@ public class CreateProductProfile : Profile
     public CreateProductProfile()
     {
         CreateMap<CreateProductRequest, CreateProductCommand>();
+        CreateMap<CreateProductRequest, CreateProductResponse>();
         CreateMap<CreateProductResult, CreateProductResponse>();
         
         CreateMap<ProductRating, Ambev.DeveloperEvaluation.Application.Products.CreateProduct.ProductRating>();
