@@ -35,7 +35,9 @@ public class ProductsController : BaseController
             return BadRequest(validationResult.Errors);
 
         var command = _mapper.Map<CreateProductCommand>(request);
-        command.LoggedUserEmail = this.GetCurrentUserEmail();
+        
+        //TODO: Remove mocked user
+        command.LoggedUserEmail = "customer@gmail.com";
         
         var response = await _mediator.Send(command, cancellationToken);
 

@@ -9,11 +9,13 @@ namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 public class CreateProductHandler : IRequestHandler<CreateProductCommand, CreateProductResult>
 {
     private readonly IProductRepository _productRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public CreateProductHandler(IProductRepository productRepository, IMapper mapper)
+    public CreateProductHandler(IProductRepository productRepository, IMapper mapper, IUserRepository userRepository)
     {
         _productRepository = productRepository;
+        _userRepository = userRepository;
         _mapper = mapper;
     }
     
@@ -28,6 +30,18 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Create
         }
         
         var product = _mapper.Map<Product>(request);
+        
+        User? creator = await _userRepository.GetByEmailAsync(request.LoggedUserEmail);
+
+        if (creator is null)
+        {
+            throw new Exception("User not found");
+        }
+
+        product.Creator = creator;
+        product.CreatedBy = creator.Id;
+        product.CreatedAt = DateTime.UtcNow;
+        product.UpdatedAt = DateTime.UtcNow;
         
         var createdProduct = await _productRepository.CreateAsync(product, cancellationToken);
         var result = _mapper.Map<CreateProductResult>(createdProduct);
