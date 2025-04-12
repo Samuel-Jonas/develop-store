@@ -7,6 +7,10 @@ namespace Ambev.DeveloperEvaluation.WebApi.Common;
 [ApiController]
 public class BaseController : ControllerBase
 {
+    protected string GetBaseUri() => $"{Request.Scheme}://{Request.Host}";
+
+    protected string GetFullUri() => $"{GetBaseUri()}{Request.Path}{Request.QueryString}";
+    
     protected int GetCurrentUserId() =>
             int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? throw new NullReferenceException());
 

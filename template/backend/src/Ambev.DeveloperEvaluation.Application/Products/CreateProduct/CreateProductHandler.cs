@@ -31,7 +31,7 @@ public class CreateProductHandler : IRequestHandler<CreateProductCommand, Create
         
         var product = _mapper.Map<Product>(request);
         
-        User? creator = await _userRepository.GetByEmailAsync(request.LoggedUserEmail);
+        User? creator = await _userRepository.GetByEmailAsync(request.LoggedUserEmail, cancellationToken);
 
         if (creator is null)
         {

@@ -39,14 +39,14 @@ public class ProductsController : BaseController
         //TODO: Remove mocked user
         command.LoggedUserEmail = "customer@gmail.com"; //this.GetCurrentUserEmail();
         
-        var response = await _mediator.Send(command, cancellationToken);
-        _mapper.Map<CreateProductResponse>(request);
+        var result = await _mediator.Send(command, cancellationToken);
+        var response = _mapper.Map<CreateProductResponse>((request, result));
 
-        return Created(string.Empty, new ApiResponseWithData<CreateProductResponse>
+        return Created(GetFullUri(), new ApiResponseWithData<CreateProductResponse>
         {
             Success = true,
             Message = "Product created successfully.",
-            Data = _mapper.Map<CreateProductResponse>(response)
+            Data = response
         });
     }
     
