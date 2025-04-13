@@ -71,8 +71,8 @@ public class UserRepository : IUserRepository
         if (user == null)
             return false;
 
-        user.DeletedAt = DateTime.Now;
-        user.UpdatedAt = DateTime.Now;
+        user.DeletedAt = DateTime.UtcNow;
+        user.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return true;

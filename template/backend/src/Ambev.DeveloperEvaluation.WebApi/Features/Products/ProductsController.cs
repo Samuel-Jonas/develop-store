@@ -1,16 +1,20 @@
 using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
+using Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetAll;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetAllByCategory;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetById;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetProductCategories;
+using Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 using Ambev.DeveloperEvaluation.Domain.Common.Extensions;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.DeleteProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetAll;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetAllByCategory;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetById;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetProductCategories;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.UpdateProduct;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -95,7 +99,7 @@ public class ProductsController : BaseController
         return Ok(_mapper.Map<GetProductByIdResponse>(response));
     }
     
-    //TODO: Checked (Ok 200) Missing (BadRequest 400)
+    //TODO: Checked (Ok 200) / Missing (BadRequest 400)
     [HttpGet("category/{category}")]
     [ProducesResponseType(typeof(PaginatedResponse<GetAllProductsByCategoryResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -142,25 +146,55 @@ public class ProductsController : BaseController
         return Ok(categories);
     }
 
-    //TODO: Delete product route
+    //TODO: Checked (Ok 200) Missing (BadRequest 400)
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteProductById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        return Ok(new { });
+        DeleteProductRequest request = new DeleteProductRequest { Id = id} ;
+        DeleteProductRequestValidator validator = new DeleteProductRequestValidator();
+        
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
+        var command = _mapper.Map<DeleteProductCommand>(request.Id);
+        var result = await _mediator.Send(command, cancellationToken);
+        
+        return Ok(new ApiResponse
+        {
+            Success = result.Success,
+            Message = "Product deleted successfully.",
+        });
     }
 
-    //TODO: Update product route
+    //TODO: Checked (Ok 200) Missing (BadRequest 400, NotFound 404)
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(ApiResponseWithData<CreateProductResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponseWithData<UpdateProductResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateProductById([FromRoute] Guid id, 
-        [FromBody] CreateProductRequest request,
+        [FromBody] UpdateProductRequest request,
         CancellationToken cancellationToken)
     {
-        return Ok(new { });
+        UpdateProductRequestValidator validator = new UpdateProductRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
+        var command = _mapper.Map<UpdateProductCommand>((id, request));
+        
+        var result = await _mediator.Send(command, cancellationToken);
+        var response = _mapper.Map<UpdateProductResponse>(result);
+        
+        return Ok(response);
     }
 }

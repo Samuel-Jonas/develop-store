@@ -47,7 +47,7 @@ public class PersonRepository : IPersonRepository
         }
         
         existingPerson.Type = personType;
-        existingPerson.UpdatedAt = DateTime.Now;
+        existingPerson.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return existingPerson;
@@ -64,8 +64,8 @@ public class PersonRepository : IPersonRepository
             return false;
         }
         
-        existingPerson.DeletedAt = DateTime.Now;
-        existingPerson.UpdatedAt = DateTime.Now;
+        existingPerson.DeletedAt = DateTime.UtcNow;
+        existingPerson.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return true;

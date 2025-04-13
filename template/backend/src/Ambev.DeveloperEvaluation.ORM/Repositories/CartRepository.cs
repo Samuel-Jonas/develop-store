@@ -47,7 +47,7 @@ public class CartRepository : ICartRepository
         }
         
         existingCart.Checkout();
-        existingCart.UpdatedAt = DateTime.Now;
+        existingCart.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return existingCart;
@@ -64,8 +64,8 @@ public class CartRepository : ICartRepository
             return false;
         }
         
-        cart.DeletedAt = DateTime.Now;
-        cart.UpdatedAt = DateTime.Now;
+        cart.DeletedAt = DateTime.UtcNow;
+        cart.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return true;

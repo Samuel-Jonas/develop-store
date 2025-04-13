@@ -81,7 +81,7 @@ public class RegularPersonRepository : IRegularPersonRepository
             existingRegularPerson.Geolocation = person.Geolocation;
         }
         
-        existingRegularPerson.UpdatedAt = DateTime.Now;
+        existingRegularPerson.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync(cancellationToken);
         return existingRegularPerson;
     }
@@ -97,8 +97,8 @@ public class RegularPersonRepository : IRegularPersonRepository
             return false;
         }
         
-        existingRegularPerson.DeletedAt = DateTime.Now;
-        existingRegularPerson.UpdatedAt = DateTime.Now;
+        existingRegularPerson.DeletedAt = DateTime.UtcNow;
+        existingRegularPerson.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return true;

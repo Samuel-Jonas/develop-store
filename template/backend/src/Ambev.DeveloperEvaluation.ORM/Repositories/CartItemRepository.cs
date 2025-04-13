@@ -57,7 +57,7 @@ public class CartItemRepository : ICartItemRepository
             existingCartItem.PriceAtAddition = cartItem.PriceAtAddition;
         }
         
-        existingCartItem.UpdatedAt = DateTime.Now;
+        existingCartItem.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return existingCartItem;
@@ -74,8 +74,8 @@ public class CartItemRepository : ICartItemRepository
             return false;
         }
         
-        cartItem.DeletedAt = DateTime.Now;
-        cartItem.UpdatedAt = DateTime.Now;
+        cartItem.DeletedAt = DateTime.UtcNow;
+        cartItem.UpdatedAt = DateTime.UtcNow;
         
         await _context.SaveChangesAsync(cancellationToken);
         return true;
