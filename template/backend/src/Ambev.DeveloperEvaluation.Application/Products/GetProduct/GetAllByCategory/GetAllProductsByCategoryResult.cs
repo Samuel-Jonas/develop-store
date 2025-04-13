@@ -1,10 +1,12 @@
+using Ambev.DeveloperEvaluation.Application.Products.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
-using Ambev.DeveloperEvaluation.WebApi.Features.Products.Common;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetAllByCategory;
 
-public class CreateProductRequest
+public class GetAllProductsByCategoryResult
 {
+    public Guid Id { get; set; }
+
     public string Title { get; set; }
 
     public decimal Price { get; set; }

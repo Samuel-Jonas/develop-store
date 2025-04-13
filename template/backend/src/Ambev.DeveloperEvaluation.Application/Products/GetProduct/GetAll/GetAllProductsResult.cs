@@ -1,6 +1,7 @@
+using Ambev.DeveloperEvaluation.Application.Products.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetAll;
 
 public class GetAllProductsResult
 {
@@ -16,13 +17,6 @@ public class GetAllProductsResult
 
     public string Image { get; set; }
 
-    public Rating Rating { get; set; }
+    public ProductRating Rating { get; set; }
     
-}
-
-public class Rating
-{
-    public decimal Rate { get; set; }
-
-    public int Count { get; set; }
 }

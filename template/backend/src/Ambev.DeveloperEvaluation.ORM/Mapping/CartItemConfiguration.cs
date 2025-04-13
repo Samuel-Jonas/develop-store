@@ -28,7 +28,7 @@ public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
             .OnDelete(DeleteBehavior.Restrict);
         
         builder.HasOne(ci => ci.Product)
-            .WithMany()
+            .WithMany(p => p.Items)
             .HasForeignKey(ci => ci.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
     }

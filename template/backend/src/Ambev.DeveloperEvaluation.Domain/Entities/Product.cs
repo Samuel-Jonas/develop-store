@@ -26,7 +26,7 @@ public class Product : BaseEntity
 
     public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 
-    public CartItem Item { get; set; }
+    public ICollection<CartItem> Items { get; set; }
     
     private Product() { }
 }

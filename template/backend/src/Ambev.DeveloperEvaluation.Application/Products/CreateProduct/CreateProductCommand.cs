@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Application.Products.Common;
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using MediatR;
@@ -32,11 +33,4 @@ public class CreateProductCommand : IRequest<CreateProductResult>
             Errors = result.Errors.Select(o => (ValidationErrorDetail)o)
         };
     }
-}
-
-public class ProductRating
-{
-    public decimal Rate { get; set; }
-
-    public int Count { get; set; }
 }

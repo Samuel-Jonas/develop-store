@@ -18,6 +18,7 @@ public class CreateProductProfile : Profile
             .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.request.Category))
             .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.request.Rating));
         
-        CreateMap<ProductRating, Ambev.DeveloperEvaluation.Application.Products.CreateProduct.ProductRating>();
+        CreateMap<Common.ProductRating, 
+            Ambev.DeveloperEvaluation.Application.Products.Common.ProductRating>();
     }
 }

@@ -1,7 +1,7 @@
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetAllByCategory;
 
 public class GetAllProductsByCategoryRequestValidator : AbstractValidator<GetAllProductsByCategoryRequest>
 {
@@ -9,7 +9,6 @@ public class GetAllProductsByCategoryRequestValidator : AbstractValidator<GetAll
     {
         RuleFor(x => x.Category)
             .NotNull()
-            .NotEmpty()
             .WithMessage("The category cannot be null or empty.");
         
         RuleFor(x => x.Category)

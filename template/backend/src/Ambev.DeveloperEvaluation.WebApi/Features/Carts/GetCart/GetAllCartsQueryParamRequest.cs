@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart;
 
-public class GetAllProductsQueryParamsRequest
+public class GetAllCartsQueryParamRequest
 {
     [FromQuery(Name = "_page")]
     public int Page { get; set; } = 1;

@@ -3,7 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using MediatR;
 
-namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetAll;
 
 public class GetAllProductsHandler : IRequestHandler<GetAllProductCommand, List<GetAllProductsResult>>
 {

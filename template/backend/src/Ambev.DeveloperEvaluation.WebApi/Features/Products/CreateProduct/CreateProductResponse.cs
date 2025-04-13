@@ -1,4 +1,5 @@
 using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 
@@ -17,4 +18,5 @@ public class CreateProductResponse
     public string Image { get; set; }
 
     public ProductRating Rating { get; set; }
+    
 }
