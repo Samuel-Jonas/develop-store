@@ -1,9 +1,11 @@
 using Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
+using Ambev.DeveloperEvaluation.Application.Carts.DeleteCart;
 using Ambev.DeveloperEvaluation.Application.Carts.GetCart.GetAll;
 using Ambev.DeveloperEvaluation.Application.Carts.GetCart.GetById;
 using Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.CreateCart;
+using Ambev.DeveloperEvaluation.WebApi.Features.Carts.DeleteCart;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart.GetAll;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart.GetById;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.UpdateCart;
@@ -122,7 +124,7 @@ public class CartsController : BaseController
         return Ok(response);
     }
 
-    //TODO: Delete cart using the cart id
+    //TODO: Checked (200 Ok) / Missing (400 BadRequest, 404 NotFound)
     // TODO: [Authorize] DeleteCartById
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
@@ -130,6 +132,23 @@ public class CartsController : BaseController
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCartById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        return Ok(new { });
+        DeleteCartRequest request = new DeleteCartRequest { Id = id };
+        DeleteCartRequestValidator validator = new DeleteCartRequestValidator();
+        
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
+        var command = _mapper.Map<DeleteCartCommand>(request.Id);
+        var result = await _mediator.Send(command, cancellationToken);
+        
+        return Ok(new ApiResponse
+        {
+            Success = result.Success,
+            Message = "Cart deleted successfully.",
+        });
     }
 }
