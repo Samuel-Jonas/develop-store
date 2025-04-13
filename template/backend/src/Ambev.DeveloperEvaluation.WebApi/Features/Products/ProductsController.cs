@@ -17,6 +17,7 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetProductCa
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.UpdateProduct;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products;
@@ -35,6 +36,7 @@ public class ProductsController : BaseController
     }
 
     //TODO: Checked (Created 201) / Missing (BadRequest 400)
+    // TODO: [Authorize] CreateProduct
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponseWithData<CreateProductResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -63,6 +65,7 @@ public class ProductsController : BaseController
     }
     
     //TODO: Checked (OK 200) / Missing (BadRequest 400)
+    // TODO: [Authorize] GetAllProducts
     [HttpGet]
     [ProducesResponseType(typeof(PaginatedResponse<GetAllProductsResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -77,6 +80,7 @@ public class ProductsController : BaseController
     }
 
     //TODO: Checked (OK 200) / Missing (BadRequest 400, NotFound 404)
+    // TODO: [Authorize] GetProductById
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetProductByIdResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -100,6 +104,7 @@ public class ProductsController : BaseController
     }
     
     //TODO: Checked (Ok 200) / Missing (BadRequest 400)
+    // TODO: [Authorize] GetAllProductsByCategory
     [HttpGet("category/{category}")]
     [ProducesResponseType(typeof(PaginatedResponse<GetAllProductsByCategoryResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -147,6 +152,7 @@ public class ProductsController : BaseController
     }
 
     //TODO: Checked (Ok 200) Missing (BadRequest 400)
+    // TODO: [Authorize] DeleteProductById
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -174,6 +180,7 @@ public class ProductsController : BaseController
     }
 
     //TODO: Checked (Ok 200) Missing (BadRequest 400, NotFound 404)
+    // TODO: [Authorize] UpdateProductById
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ApiResponseWithData<UpdateProductResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]

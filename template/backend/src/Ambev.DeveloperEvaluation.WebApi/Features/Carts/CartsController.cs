@@ -22,6 +22,7 @@ public class CartsController : BaseController
     }
 
     //TODO: Get all existing carts
+    // TODO: [Authorize] GetAllCarts
     [HttpGet]
     [ProducesResponseType(typeof(PaginatedResponse<GetAllCartsResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -31,6 +32,7 @@ public class CartsController : BaseController
     }
 
     //TODO: Create a cart if not exists and add the item to cart
+    // TODO: [Authorize] CreateCartItem
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponseWithData<CreateCartItemResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -40,6 +42,7 @@ public class CartsController : BaseController
     }
 
     //TODO: Get cart using the cart id
+    // TODO: [Authorize] GetCartById
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ApiResponseWithData<GetCartByIdResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -50,6 +53,7 @@ public class CartsController : BaseController
     }
 
     //TODO: Update cart using the cart id and request body
+    // TODO: [Authorize] UpdateCartById
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ApiResponseWithData<UpdateCartRequest>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -61,6 +65,8 @@ public class CartsController : BaseController
         return Ok(new { });
     }
 
+    //TODO: Delete cart using the cart id
+    // TODO: [Authorize] DeleteCartById
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
