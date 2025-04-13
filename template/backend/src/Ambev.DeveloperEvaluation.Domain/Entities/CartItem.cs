@@ -18,7 +18,7 @@ public class CartItem : BaseEntity
     
     public DateTime UpdatedAt { get; set; }
     
-    private CartItem() { }
+    public CartItem() { }
 
     public CartItem(Guid productId, Guid cartId, int quantity, decimal priceAtAddition)
     {

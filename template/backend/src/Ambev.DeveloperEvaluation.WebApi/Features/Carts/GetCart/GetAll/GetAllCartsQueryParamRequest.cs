@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart.GetAll;
 
 public class GetAllCartsQueryParamRequest
 {

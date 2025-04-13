@@ -1,8 +1,8 @@
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.Common;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart;
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.GetCart.GetAll;
 
-public class GetCartByIdResponse
+public class GetAllCartsResponse
 {
     public Guid Id { get; set; }
 
@@ -10,6 +10,6 @@ public class GetCartByIdResponse
 
     public string Date { get; set; }
 
-    public ICollection<ProductCart> products { get; set; }
+    public List<ProductCart> Products { get; set; }
     
 }

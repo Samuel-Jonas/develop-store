@@ -31,7 +31,7 @@ public class CartItemRepository : ICartItemRepository
     public async Task<List<CartItem>> GetAllFromACartIdAsync(Guid cartId, CancellationToken cancellationToken = default)
     {
         return await _context.CartItems
-            .Where(ci => ci.CartId == cartId && ci.DeletedAt != null)
+            .Where(ci => ci.CartId == cartId && ci.DeletedAt == null)
             .ToListAsync(cancellationToken);
     }
 
@@ -55,6 +55,11 @@ public class CartItemRepository : ICartItemRepository
         if (existingCartItem.PriceAtAddition != cartItem.PriceAtAddition)
         {
             existingCartItem.PriceAtAddition = cartItem.PriceAtAddition;
+        }
+
+        if (existingCartItem.ProductId != cartItem.ProductId)
+        {
+            existingCartItem.ProductId = cartItem.ProductId;
         }
         
         existingCartItem.UpdatedAt = DateTime.UtcNow;

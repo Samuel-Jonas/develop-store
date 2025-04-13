@@ -14,7 +14,7 @@ public class CartConfiguration :IEntityTypeConfiguration<Cart>
         builder.Property(c => c.Id).HasColumnName("id").HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
         
         builder.Property(c => c.UserId).HasColumnName("user_id").IsRequired();
-        builder.Property(c => c.CheckedOutAt).HasColumnName("checked_out_at").HasColumnType("timestamptz").IsRequired();
+        builder.Property(c => c.CheckedOutAt).HasColumnName("checked_out_at").HasColumnType("timestamptz").HasDefaultValueSql("null");
         builder.Property(c => c.CreatedAt).HasColumnName("created_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
         builder.Property(c => c.UpdatedAt).HasColumnName("updated_at").HasColumnType("timestamptz").IsRequired().HasDefaultValueSql("now()");
         builder.Property(c => c.DeletedAt).HasColumnName("deleted_at").HasColumnType("timestamptz").HasDefaultValueSql("null");

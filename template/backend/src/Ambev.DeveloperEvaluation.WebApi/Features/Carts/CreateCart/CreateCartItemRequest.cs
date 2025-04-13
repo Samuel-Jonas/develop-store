@@ -8,6 +8,6 @@ public class CreateCartItemRequest
 
     public string Date { get; set; }
 
-    public IQueryable<ProductCart> Products { get; set; }
+    public ICollection<ProductCart> Products { get; set; }
     
 }

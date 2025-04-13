@@ -32,9 +32,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<DateTime>("CheckedOutAt")
+                    b.Property<DateTime?>("CheckedOutAt")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamptz")
-                        .HasColumnName("checked_out_at");
+                        .HasColumnName("checked_out_at")
+                        .HasDefaultValueSql("null");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
