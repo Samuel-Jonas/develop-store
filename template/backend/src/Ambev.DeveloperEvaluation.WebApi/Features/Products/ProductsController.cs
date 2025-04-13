@@ -66,6 +66,7 @@ public class ProductsController : BaseController
     
     //TODO: Checked (OK 200) / Missing (BadRequest 400)
     // TODO: [Authorize] GetAllProducts
+    //  TODO: GetAllProducts pagination
     [HttpGet]
     [ProducesResponseType(typeof(PaginatedResponse<GetAllProductsResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -105,6 +106,7 @@ public class ProductsController : BaseController
     
     //TODO: Checked (Ok 200) / Missing (BadRequest 400)
     // TODO: [Authorize] GetAllProductsByCategory
+    //  TODO: GetAllProductsByCategory pagination
     [HttpGet("category/{category}")]
     [ProducesResponseType(typeof(PaginatedResponse<GetAllProductsByCategoryResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]

@@ -23,10 +23,22 @@ public class CartsController : BaseController
 
     //TODO: Get all existing carts
     // TODO: [Authorize] GetAllCarts
+    //  TODO: GetAllCart pagination
     [HttpGet]
     [ProducesResponseType(typeof(PaginatedResponse<GetAllCartsResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAllCarts([FromQuery] GetAllCartsQueryParamRequest pagination, CancellationToken cancellationToken)
+    {
+        return Ok(new { });
+    }
+    
+    //TODO: Get cart using the cart id
+    // TODO: [Authorize] GetCartById
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<GetCartByIdResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetCartById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         return Ok(new { });
     }
@@ -37,17 +49,6 @@ public class CartsController : BaseController
     [ProducesResponseType(typeof(ApiResponseWithData<CreateCartItemResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateCartItem([FromBody] CreateCartItemRequest request, CancellationToken cancellationToken)
-    {
-        return Ok(new { });
-    }
-
-    //TODO: Get cart using the cart id
-    // TODO: [Authorize] GetCartById
-    [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ApiResponseWithData<GetCartByIdResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetCartById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         return Ok(new { });
     }
