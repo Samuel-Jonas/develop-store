@@ -50,6 +50,7 @@ public class ProductRepository : IProductRepository
         return await _context.Products
             .Where(p => p.DeletedAt == null)
             .Select(p => p.Category)
+            .Distinct()
             .ToListAsync(cancellationToken);
     }
 

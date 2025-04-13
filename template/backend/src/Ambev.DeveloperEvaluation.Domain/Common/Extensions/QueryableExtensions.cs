@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Ambev.DeveloperEvaluation.Domain.Helpers;
+namespace Ambev.DeveloperEvaluation.Domain.Common.Extensions;
 
 public static class QueryableExtensions
 {

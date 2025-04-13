@@ -2,12 +2,15 @@ using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetAll;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetAllByCategory;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetById;
+using Ambev.DeveloperEvaluation.Application.Products.GetProduct.GetProductCategories;
+using Ambev.DeveloperEvaluation.Domain.Common.Extensions;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetAll;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetAllByCategory;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetById;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct.GetProductCategories;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -125,12 +128,18 @@ public class ProductsController : BaseController
         return OkPaginated(new PaginatedList<GetAllProductsByCategoryResponse>(products, products.Count, pagination.Page, pagination.Size));
     }
     
-    //TODO: Get all categories existing in database route
     [HttpGet("categories")]
     [ProducesResponseType(typeof(ApiResponseWithData<List<string>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllProductsCategories(CancellationToken cancellationToken)
     {
-        return Ok(new { });
+        var command = _mapper.Map<GetProductCategoriesCommand>(new object());
+        var response = await _mediator.Send(command, cancellationToken);
+        
+        var productCategories = _mapper.Map<List<GetProductCategoriesResponse>>(response);
+        
+        List<string> categories = productCategories.Select(c => c.Category.GetDisplayName()).ToList();
+        
+        return Ok(categories);
     }
 
     //TODO: Delete product route

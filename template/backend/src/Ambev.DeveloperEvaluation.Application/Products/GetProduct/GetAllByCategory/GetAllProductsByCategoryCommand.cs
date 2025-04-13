@@ -12,9 +12,4 @@ public class GetAllProductsByCategoryCommand : IRequest<List<GetAllProductsByCat
     public int Size { get; set; } = 10;
     
     public string? OrderBy { get; set; }
-
-    public GetAllProductsByCategoryCommand(ProductCategory category)
-    {
-        Category = category;
-    }
 }
