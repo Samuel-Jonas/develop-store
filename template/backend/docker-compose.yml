@@ -20,7 +20,9 @@ services:
 
   ambev.developerevaluation.database:
     container_name: ambev_developer_evaluation_database
-    image: postgres:13
+    image: postgis/postgis:13-3.5
+    volumes:
+      - ambev_pg_data:/var/lib/postgresql/data
 
     environment:
       POSTGRES_DB: developer_evaluation
