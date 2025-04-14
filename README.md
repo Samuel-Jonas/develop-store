@@ -12,6 +12,8 @@
   <strong>⚠️ Warning:</strong> The current instructions were executed in a Ubuntu 22.04 Linux OS, so for Windows or MacOS those would be a bit different.
 </div>
 
+<br></br>
+
 1. Clone this repository 
 ```shell
 git clone https://github.com/Samuel-Jonas/develop-store.git
