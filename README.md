@@ -10,10 +10,6 @@
 > 5. Open browser at [http://localhost:5119/swagger/index.html](http://localhost:5119/swagger/index.html)
 > 6. Consume the api scheme provided by `Swagger`
 
-# Getting Ready - Internet
-
-> 1. Access the `url` [http://salesapi.com/swagger/index.html](http://1.1.1.1:5119/swagger/index.html)
-> 2. Consume the api scheme provided by `Swagger`
 ---
 
 # Developer Evaluation Project
