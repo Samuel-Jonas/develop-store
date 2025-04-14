@@ -1,7 +1,10 @@
 # Getting Ready - Local
 
-> 1. PostgreSQL database must be running correctly and you must have the credentials
-> 2. Configure your credentials at `template/backend/src/Ambev.DeveloperEvaluation.WebApi/appsettings.json`
+> 1. PostgreSQL database must be running correctly and you must have the credentials. Run the command below to create a new database:
+> ```shell
+> docker run -d --name ambev_developer_evaluation_database_dev -e POSTGRES_DB=developer_evaluation -e POSTGRES_USER=developer -e POSTGRES_PASSWORD=ev@luAt10n -p 5432:5432 -v ambev_pg_data:/var/lib/postgresql/data --restart unless-stopped postgis/postgis:13-3.5
+> ```
+> 2. Configure your credentials at `template/backend/src/Ambev.DeveloperEvaluation.WebApi/appsettings.json`. The command above already match the same credentials in the file.
 > 3. Migrate the current scheme into database running this command from the `src` folder:
 > ```shell
 > dotnet ef database update --project ./Ambev.DeveloperEvaluation.ORM --startup-project ./Ambev.DeveloperEvaluation.WebApi
