@@ -1,18 +1,6 @@
 # Getting Ready - Local
 
-<div style="
-  border-left: 6px solid #ffa500;
-  background-color: #fff8e1;
-  padding: 12px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  color: #5c3d00;
-  font-family: sans-serif;
-">
-  <strong>⚠️ Warning:</strong> The current instructions were executed in a Ubuntu 22.04 Linux OS, so for Windows or MacOS those would be a bit different.
-</div>
-
-<br></br>
+> ⚠️ **Warning:** The current instructions were executed in a Ubuntu 22.04 Linux OS, so for Windows or MacOS those would be a bit different.
 
 1. Clone this repository 
 ```shell
