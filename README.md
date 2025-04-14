@@ -1,3 +1,21 @@
+# Getting Ready - Local
+
+> 1. PostgreSQL database must be running correctly and you must have the credentials
+> 2. Configure your credentials at `template/backend/src/Ambev.DeveloperEvaluation.WebApi/appsettings.json`
+> 3. Migrate the current scheme into database running this command from the `src` folder:
+> ```shell
+> dotnet ef database update --project ./Ambev.DeveloperEvaluation.ORM --startup-project ./Ambev.DeveloperEvaluation.WebApi
+> ```
+> 4. Statup `Ambev.DeveloperEvaluation.WebApi: http` project
+> 5. Open browser at [http://localhost:5119/swagger/index.html](http://localhost:5119/swagger/index.html)
+> 6. Consume the api scheme provided by `Swagger`
+
+# Getting Ready - Internet
+
+> 1. Access the `url` [http://salesapi.com/swagger/index.html](http://1.1.1.1:5119/swagger/index.html)
+> 2. Consume the api scheme provided by `Swagger`
+---
+
 # Developer Evaluation Project
 
 `READ CAREFULLY`
